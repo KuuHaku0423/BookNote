@@ -122,7 +122,7 @@ w ##class(web.DHCENS.EnsHISService).DHCHisInterface("SENDADMOUTINFO",60904259)
 医嘱录入框调用这块获取医嘱套内的医嘱明细返回^CacheTemp
 ```
 
-![image-20230306180057734](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306180057734.png)
+![image-20230306180057734](img/image-20230306180057734.png)
 
 ![image-20230306180255620](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306180255620.png)
 
