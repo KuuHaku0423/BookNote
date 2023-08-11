@@ -257,7 +257,7 @@ w ##class(web.DHCENS.EnsHISService).DHCHisInterface("SendOpDrugInfoLG","O2303220
 代码调用：
 w ##class(web.DHCSTInterfacePH).RegisterLG("")；
 服务地址：
-http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
+
 ```
 
 ####  萝岗配药完成接口
@@ -267,7 +267,7 @@ http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
 代码调用：
 W ##class(web.DHCSTInterfacePH).SetPYSureFromRC("")
 服务地址：
-http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
+
 ```
 
 #### 萝岗上屏接口
@@ -277,7 +277,7 @@ http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
 代码调用：
 W ##class(web.DHCSTInterfacePH).SetPYSureFromRC("")
 服务地址：
-http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
+
 ```
 
 #### 住院包药机传处方接口
@@ -287,7 +287,7 @@ http://10.21.17.176/csp/hsb/DHC.Published.PUB0010.BS.PUB0010.CLS?WSDL=1
 代码调用：
 w ##class(web.DHCENS.BLL.Drug.Method.OPMachine).SendOrderToIPMechine(26)
 服务地址：
-http://10.21.17.176/csp/hsb/DHC.Published.PUB0009.BS.PUB0009.CLS?WSDL=1
+
 ```
 
 #### 静配门诊/住院发药接口
