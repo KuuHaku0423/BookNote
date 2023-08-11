@@ -124,15 +124,15 @@ w ##class(web.DHCENS.EnsHISService).DHCHisInterface("SENDADMOUTINFO",60904259)
 
 ![image-20230306180057734](img/image-20230306180057734.png)
 
-![image-20230306180255620](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306180255620.png)
+![image-20230306180255620](img/image-20230306180255620.png)
 
-![image-20230306180450733](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306180450733.png)
+![image-20230306180450733](img/image-20230306180450733.png)
 
 ```shell
 先是调用主医嘱套获取明细然后在这块递归调用取医嘱套里的明细项目时，医嘱套内的医嘱套将^CacheTemp里的主医嘱套内的明细项目节点给覆盖
 ```
 
-![image-20230306180806363](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306180806363.png)
+![image-20230306180806363](img/image-20230306180806363.png)
 
 ```shell
 此item为医嘱套项目表rowid，目前这个无痛胃镜医嘱套里面的全身麻醉医嘱套第二次调用该方法时，由于是同一进程，则将无痛胃镜的前三个医嘱项目表rowid给覆盖（不清楚为什么重新建医嘱套后表里rowid则不会冲突）
@@ -140,17 +140,17 @@ w ##class(web.DHCENS.EnsHISService).DHCHisInterface("SENDADMOUTINFO",60904259)
 
 > 无痛胃镜医嘱套表信息
 
-![image-20230306181302751](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306181302751.png)
+![image-20230306181302751](img/image-20230306181302751.png)
 
 > 全身麻醉医嘱套表信息
 
-![image-20230306181406846](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306181406846.png)
+![image-20230306181406846](img/image-20230306181406846.png)
 
 上述两个医嘱套项目明细里面的ITM_Childsub重复导致globle覆盖了
 
 > 新建的测试医嘱套项目明细表不会这样，不清楚插表规则
 
-![image-20230306181600622](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306181600622.png)
+![image-20230306181600622](img/image-20230306181600622.png)
 
 ## 成组医嘱
 
@@ -179,60 +179,27 @@ SELECT * FROM DHC_OE_OrdItem A WHERE A.DHCORI_OEORI_Dr
 
 # 药房
 
-## 静配问题处理
-
-DHC_BaseDrugDispItm：补货子表![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE4B480076E66F439597F50908724D9422/2629)
-
-当补货单的状态是“未完成时”
-
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICEF686B0E12A464C8A9DFE963981376E7C/2630)
-
-当补货单的状态是“已完成等待出库时”或者“已接收”时
-
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE974F6A66792A4AF98A0643EE8A8C385C/2631)
-
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE3224E0DD924849B1852FCF3730EDCECC/2632)
-
-下一个补货单：
-
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE6B3D14250E0943FEAB65A2B03FBD557C/2633)
-
-
-
-公式：本次未补=上次未补+发药量-请求数量
-
-​           本次未补=下一行的上次未补
-
-SELECT a.BDDI_RestQty 本次未补,a.BDDI_LastRestQty 上次未补,a.BDDI_DispQty 发药量,a.BDDI_ReqQty 请求数量,* 
-
-FROM DHC_BaseDrugDispItm a WHERE a.BDDI_CTLOC_DR=99 AND a.BDDI_INCI_DR=903
-
-SELECT * FROM INC_Itm a WHERE a.INCI_Code='401801020005'
-
-SELECT * FROM CT_Loc  a WHERE a.CTLOC_Desc["中医"
-
 ## 基数药补货问题
 
-DHC_BaseDrugDispItm：补货子表
+DHC_BaseDrugDispItm：补货子表 当补货单的状态是“未完成时”
 
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE4B480076E66F439597F50908724D9422/2629)
+![0](img/2629-20230811105805446.png)
 
-当补货单的状态是“未完成时”
 
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICEF686B0E12A464C8A9DFE963981376E7C/2630)
+
+![0](img/2630-20230811105821720.png)
 
 当补货单的状态是“已完成等待出库时”或者“已接收”时
 
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE974F6A66792A4AF98A0643EE8A8C385C/2631)
+![0](img/2631-20230811105830248.png)
 
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE3224E0DD924849B1852FCF3730EDCECC/2632)
+![0](img/2632-20230811105837401.png)
 
 下一个补货单：
 
-​    ![0](https://note.youdao.com/yws/public/resource/e0222fe7b747a7064be9ec081d55d434/xmlnote/OFFICE6B3D14250E0943FEAB65A2B03FBD557C/2633)
+![0](img/2633-20230811105846679.png)
 
-
-
+```sql
 公式：本次未补=上次未补+发药量-请求数量
 
 ​           本次未补=下一行的上次未补
@@ -244,6 +211,7 @@ FROM DHC_BaseDrugDispItm a WHERE a.BDDI_CTLOC_DR=99 AND a.BDDI_INCI_DR=903
 SELECT * FROM INC_Itm a WHERE a.INCI_Code='401801020005'
 
 SELECT * FROM CT_Loc  a WHERE a.CTLOC_Desc["血管外科"
+```
 
 ## 基数药执行发药
 
@@ -465,11 +433,11 @@ SELECT a.BDDI_RestQty 本次未补,a.BDDI_LastRestQty 上次未补,a.BDDI_DispQt
 
 > **基数药子表**(原数据)
 
-![image-20230111110354279](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111110354279.png)
+![image-20230111110354279](img/image-20230111110354279.png)
 
 > **基数药子表**（修正后）
 
-![image-20230111112944866](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111112944866.png)
+![image-20230111112944866](img/image-20230111112944866.png)
 
 > 库存请求子表(原数据)
 
@@ -479,39 +447,39 @@ select * from IN_ReqItem where INRQI_RowId='133502||2'
 
 
 
-![image-20230111110921823](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111110921823.png)
+![image-20230111110921823](img/image-20230111110921823.png)
 
 > 库存请求子表（修正后）
 
-![image-20230111111309056](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111111309056.png)
+![image-20230111111309056](img/image-20230111111309056.png)
 
 > 库存转移表子表（原数据）
 
-![image-20230111114519950](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111114519950.png)
+![image-20230111114519950](img/image-20230111114519950.png)
 
 > 库存转移子表（修改后）
 
-![image-20230111114612731](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111114612731.png)
+![image-20230111114612731](img/image-20230111114612731.png)
 
-![image-20230111151358641](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111151358641.png)
+![image-20230111151358641](img/image-20230111151358641.png)
 
 > 台账表（原始数据）
 
-![image-20230111154356749](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111154356749.png)
+![image-20230111154356749](img/image-20230111154356749.png)
 
-![image-20230111154055039](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111154055039.png)
+![image-20230111154055039](img/image-20230111154055039.png)
 
-![image-20230111155028168](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111155028168.png)
+![image-20230111155028168](img/image-20230111155028168.png)
 
 > 台账表（修改后）
 
-![image-20230111155204343](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111155204343.png)
+![image-20230111155204343](img/image-20230111155204343.png)
 
-![image-20230111155214063](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230111155214063.png)
+![image-20230111155214063](img/image-20230111155214063.png)
 
 ## 医嘱套价格问题改表备份
 
-![image-20230306185812435](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230306185812435.png)
+![image-20230306185812435](img/image-20230306185812435.png)
 
 # 互联网医院接口
 
@@ -632,7 +600,7 @@ select * from IN_ReqItem where INRQI_RowId='133502||2'
 
 ## 危急值发送消息至公众号
 
-![image-20230313090120734](/Users/kuuhaku/Library/Application Support/typora-user-images/image-20230313090120734.png)
+![image-20230313090120734](img/image-20230313090120734.png)
 
 ```shell
 /// 发送给微信公众号
